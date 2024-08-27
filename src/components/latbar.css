@@ -1,0 +1,24 @@
+form > button {
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    width: 10em;
+    background-color: #f44336; 
+    color: white;
+}
+
+.close-button {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    
+    padding: 4px 15px;
+    border-radius: 50px;
+    color: #f44336;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

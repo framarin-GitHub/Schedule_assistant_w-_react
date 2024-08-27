@@ -1,0 +1,16 @@
+@font-face{
+    font-family: "AirstreamNF";
+    src:local("AirstreamNF-Regular"),
+    url('./components/fonts/AirstreamNF.ttf') 
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+#root{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}

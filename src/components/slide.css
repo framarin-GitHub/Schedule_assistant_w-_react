@@ -1,0 +1,16 @@
+.slide{ 
+    position: relative;
+    width: 100%;
+    height: 20em;
+    display: flex;
+    flex-direction: row;
+    border-style: ridge;
+    border-color: rgb(255, 90, 90);
+    border-width: 5px;
+}
+.slide-title{
+  font-family: "AirstreamNF";
+  font-size: 40px;
+  color: rgb(255, 90, 90);
+}
+  
