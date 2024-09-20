@@ -1,0 +1,13 @@
+#registration-button {
+    width: 10em;
+    height: auto;
+    font-size: 32px;
+    backdrop-filter: blur(30px);
+    border: 5px solid salmon;
+}
+#registration-button:hover{
+    width: 10em;
+    height: auto;
+    font-size: 40px;
+    border: 10px solid red;
+}

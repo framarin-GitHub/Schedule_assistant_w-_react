@@ -10,14 +10,16 @@ const clickClear = () => {
 }
 return(
 <>
-  <Navbar bg="light" expand="lg" className="bg-body-tertiary" style={{minHeight:'10%',opacity:'0.9',fontSize:'32px'}}>
+  <Navbar bg="light" expand="lg" className="bg-body-tertiary" style={{
+    minHeight:'10%',opacity:'0.9',fontSize:'32px',  
+  }}>
   <Container>
     <Navbar.Brand href="#home" style={{fontSize:'40px'}}>Schedule Assistant</Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
-        <Nav.Link href="#home">Home</Nav.Link>
-        <Nav.Link href="" onClick={clickClear}>Clear</Nav.Link>
+        <Nav.Link href="#home" style={{marginLeft:'10em'}}>Home</Nav.Link>
+        <Nav.Link href="" onClick={clickClear} style={{marginLeft:'5em'}}>Clear</Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Container>

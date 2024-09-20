@@ -4,6 +4,7 @@ import calendar from './components/img/6274.jpg'
 import Header from './components/header.jsx'
 import Latbar from './components/latbar.jsx'
 import SlideList from './components/slideList.jsx'
+import Login from './components/login.jsx'
 import { useState, useEffect } from 'react'
 import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 
@@ -54,7 +55,8 @@ return (
   offset={0} 
   speed={1}
   factor={1}
-  style={{backgroundSize:'cover', backgroundImage: `url(${calendar})`}}>
+  style={{backgroundSize:'cover', backgroundImage: `url(${calendar})`,display:'flex',justifyContent:'center',alignItems:'center'}}>
+    <Login/>
   </ParallaxLayer>
   <ParallaxLayer offset={1}>
     <Header/>
