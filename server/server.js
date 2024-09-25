@@ -46,13 +46,30 @@ let server = http.createServer((req,res) => {
     }
     if (req.method == 'POST') {
         console.log("POST requested")
-        res.writeHead(200, headers)
-        res.write("CIAONEEE")
-        res.end()
+        let body = ''
+        req.on('data', (chunk) => {
+          body += chunk;
+        })
+        req.on('end', () => {
+          let account = JSON.parse(body)
+          DBEnrollAccount(account).then(
+            (result) => {
+              console.log(result)
+              res.writeHead(200, headers)
+              res.write(`${result}`)
+              res.end()
+            }
+          )
+        })
+    }
+    if (req.method == 'PUT') {
+      res.writeHead(200, headers)
+      res.write("ciaoo")
+      res.end()
     }
     if(req.method == 'OPTIONS') {
-        res.writeHead(200, headers)
-        res.end()
+      res.writeHead(200, headers)
+      res.end()
     }
 })
 server.listen(process.env.PORT)

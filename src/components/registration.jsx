@@ -4,10 +4,11 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { useState } from 'react'
 import 'reactjs-popup/dist/index.css';
+import './registration.css'
 
 const url=new URL("http://localhost:8080");
 
-export default function Login(props) {
+export default function Registration(props) {
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
 const handleChange = (e)=>{
@@ -23,11 +24,11 @@ const handleChange = (e)=>{
 }
 return (
     <Popup 
-    trigger={open => (<button className="button" id='login-button' style={{border:"none"}}><b><u>Login</u></b></button>)} 
+    trigger={open => (<button className="button" id='registration-button'>do you want to save your stuff? <b><u>REGISTER</u></b></button>)} 
         modal>
     {close => (
     <>
-        <form id='login-form' action='PUT' onSubmit={
+        <form id='registration-form' action='POST' onSubmit={
                 (e) => {
                   e.preventDefault()
                   if(password == "")
@@ -36,7 +37,7 @@ return (
                     return
                   fetch(url,{
                     mode:'cors',
-                    method: 'PUT',
+                    method: 'POST',
                     body: JSON.stringify({
                         username: username,
                         password: password
@@ -63,7 +64,7 @@ return (
         >
           <Form.Control name='password' type="password" placeholder="password" onChange={handleChange}/>          
         </ FloatingLabel>
-        <button type="submit">login</button>
+        <button type="submit">registration</button>
         </form>
     </>)}
     </Popup>
