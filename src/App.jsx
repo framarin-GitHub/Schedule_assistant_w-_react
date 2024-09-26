@@ -40,14 +40,23 @@ useEffect(() => {
   }
 }, []);
 
-//whenever array is modified
+//whenever array is modified save on local storage
 useEffect(() => {
   localStorage.setItem('task_array', JSON.stringify(task_array));
 }, [task_array]);
-//whenever array is modified
 useEffect(() => {
   localStorage.setItem('group_array', JSON.stringify(group_array));
-}, [group_array]);
+}, [group_array]); 
+
+//whenever array is modified save on db
+const [user_logged, setUserLogged] = useState("")
+useEffect(()=>{
+  if(user_logged == "")
+    return
+  else{
+    
+  }
+},[task_array, user_logged])
 return (
   <>
   <Parallax pages={2}> 
@@ -56,10 +65,10 @@ return (
   speed={1}
   factor={1}
   style={{backgroundSize:'cover', backgroundImage: `url(${calendar})`,display:'flex',justifyContent:'center',alignItems:'center'}}>
-    <Registration/>
+    <Registration handleRegistration={setUserLogged}/>
   </ParallaxLayer>
   <ParallaxLayer offset={1}>
-    <Header/>
+    <Header handleLogin={setUserLogged} logged={user_logged}/>
     <div id='central-body'>
       <Latbar task_array={task_array} setTaskArray={setTaskArray}
         group_array={group_array} setGroupArray={setGroupArray}/>

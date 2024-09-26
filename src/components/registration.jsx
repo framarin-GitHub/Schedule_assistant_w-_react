@@ -46,8 +46,11 @@ return (
                   .then((response) =>{
                     return response.text()
                   })
-                  .then((prom) =>{
-                    console.log(prom)
+                  .then((msg) =>{
+                    if(msg != "username already used")
+                      props.handleRegistration(`${username}`)
+                    else
+                      console.log(msg)
                   })
                 }}>
         <FloatingLabel

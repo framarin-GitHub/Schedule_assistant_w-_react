@@ -23,7 +23,8 @@ const handleChange = (e)=>{
 }
 return (
     <Popup 
-    trigger={open => (<button className="button" id='login-button' style={{border:"none"}}><b><u>Login</u></b></button>)} 
+    trigger={open => (<button className="button" id='login-button' style={{border:"none"}}><b><u>
+      {props.logged != "" ? `${props.logged}` : "login" }</u></b></button>)} 
         modal>
     {close => (
     <>
@@ -45,8 +46,11 @@ return (
                   .then((response) =>{
                     return response.text()
                   })
-                  .then((prom) =>{
-                    console.log(prom)
+                  .then((msg) =>{
+                    if(msg != "username not found" && msg != "wrong password")
+                      props.handleLogin(`${username}`)
+                    else
+                      console.log(msg)
                   })
                 }}>
         <FloatingLabel

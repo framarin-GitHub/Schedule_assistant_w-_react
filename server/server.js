@@ -36,6 +36,16 @@ const DBEnrollAccount = async (new_account) =>{
       return 0
     }catch (error) {console.log(error)}
 }
+const DBCheckCredentialsAccount = async (account) =>{
+  try{
+    let db_account = await Account.findOne({username: account.username})
+    if(!db_account)
+      return "username not found"
+    if(db_account.password == account.password)
+      return 0
+    return "wrong password"
+  } catch (error) {console.log(error)}
+}
 
 
 let server = http.createServer((req,res) => {
@@ -44,7 +54,7 @@ let server = http.createServer((req,res) => {
         'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
         'Access-Control-Max-Age': 2592000, 
     }
-    if (req.method == 'POST') {
+    if(req.method == 'POST') {
         console.log("POST requested")
         let body = ''
         req.on('data', (chunk) => {
@@ -62,10 +72,26 @@ let server = http.createServer((req,res) => {
           )
         })
     }
-    if (req.method == 'PUT') {
-      res.writeHead(200, headers)
-      res.write("ciaoo")
-      res.end()
+    if(req.method == 'PUT') {
+      console.log("PUT requested")
+      let body = ''
+      req.on('data', (chunk) => {
+        body += chunk;
+      })
+      req.on('end', () => {
+        let account = JSON.parse(body)
+        DBCheckCredentialsAccount(account).then(
+          (result) => {
+            console.log(result)
+            res.writeHead(200, headers)
+            res.write(`${result}`)
+            res.end()
+          }
+        )
+      })
+    }
+    if(req.method == 'POST') {
+    
     }
     if(req.method == 'OPTIONS') {
       res.writeHead(200, headers)
