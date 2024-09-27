@@ -10,6 +10,7 @@ const url=new URL("http://localhost:8080");
 export default function Login(props) {
 const [username, setUsername] = useState("")
 const [password, setPassword] = useState("")
+const [get_flag, setGetFlag] = useState(false)
 const handleChange = (e)=>{
   const input = e.target
   switch(e.target.getAttribute('name')){
@@ -19,8 +20,9 @@ const handleChange = (e)=>{
     case 'password':
       setPassword(e.target.value)
       break;
-  }
+    }
 }
+const handleCheck = (e) =>{setGetFlag(e.target.checked)}
 return (
     <Popup 
     trigger={open => (<button className="button" id='login-button' style={{border:"none"}}><b><u>
@@ -39,6 +41,7 @@ return (
                     mode:'cors',
                     method: 'PUT',
                     body: JSON.stringify({
+                        registration: false,
                         username: username,
                         password: password
                     })
@@ -47,8 +50,27 @@ return (
                     return response.text()
                   })
                   .then((msg) =>{
-                    if(msg != "username not found" && msg != "wrong password")
-                      props.handleLogin(`${username}`)
+                    if(msg != "username not found" && msg != "wrong password"){
+                      if(get_flag){
+                        fetch(url,{
+                          mode:'cors',
+                          method: 'GET',
+                        })
+                        .then((response) =>{
+                          return response.text()
+                        })
+                        .then((data) =>{
+                          console.log(data)
+                        })
+                        .then(() => {
+                          props.handleLogin(`${username}`)
+                        })
+                      }
+                      else
+                        props.handleLogin(`${username}`)
+                      setGetFlag(false)
+                      close()
+                    }
                     else
                       console.log(msg)
                   })
@@ -67,6 +89,12 @@ return (
         >
           <Form.Control name='password' type="password" placeholder="password" onChange={handleChange}/>          
         </ FloatingLabel>
+        <Form.Check 
+          type="switch"
+          id="get-checkbox"
+          label="check this if you want to download your saved work"
+          onChange={handleCheck}
+        />
         <button type="submit">login</button>
         </form>
     </>)}

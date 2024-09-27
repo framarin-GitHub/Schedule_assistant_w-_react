@@ -10,6 +10,7 @@ import { Parallax, ParallaxLayer } from '@react-spring/parallax'
 
 function App() {
 
+const url=new URL("http://localhost:8080");
 
 //task_array keeps trace for all inserted events
 //{id: uuidv4(), event_title:'', group_title:'', description:'', date:''}
@@ -54,7 +55,15 @@ useEffect(()=>{
   if(user_logged == "")
     return
   else{
-    
+    fetch(url,{
+      mode:'cors',
+      method: 'POST',
+      body: JSON.stringify({
+          groups: false,
+          user: user_logged,
+          events: task_array
+      })
+    })    
   }
 },[task_array, user_logged])
 return (

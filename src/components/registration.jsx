@@ -28,7 +28,7 @@ return (
         modal>
     {close => (
     <>
-        <form id='registration-form' action='POST' onSubmit={
+        <form id='registration-form' action='PUT' onSubmit={
                 (e) => {
                   e.preventDefault()
                   if(password == "")
@@ -37,8 +37,9 @@ return (
                     return
                   fetch(url,{
                     mode:'cors',
-                    method: 'POST',
+                    method: 'PUT',
                     body: JSON.stringify({
+                        registration: true,
                         username: username,
                         password: password
                     })
@@ -47,8 +48,10 @@ return (
                     return response.text()
                   })
                   .then((msg) =>{
-                    if(msg != "username already used")
+                    if(msg != "username already used"){
                       props.handleRegistration(`${username}`)
+                      close()
+                    }
                     else
                       console.log(msg)
                   })
