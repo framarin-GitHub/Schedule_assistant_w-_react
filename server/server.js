@@ -76,6 +76,13 @@ const DBSaveEvents = async (usertask) =>{
   await UserTask.replaceOne({_id : db_user_task._id}, usertask)
   return 0
 }
+//GET METHODS
+const DBGetEvents = async (usr) =>{
+  let db_user_task = await UserTask.findOne({user: `${usr}`})
+  if(!db_user_task)
+    return []
+  return db_user_task
+}
 
 let server = http.createServer((req,res) => {
     const headers = {
@@ -85,13 +92,12 @@ let server = http.createServer((req,res) => {
     }
     if(req.method == 'GET') {
       console.log("GET requested")
-      let body = ''
-      req.on('data', (chunk) => {
-        body += chunk;
-      }) 
-      req.on('end', () => {
+      let user = req.url.slice(1);
+      DBGetEvents(user)
+      .then((data) =>{
         res.writeHead(200, headers)
-        res.write("ciaaooo")
+        console.log(data)
+        res.write(JSON.stringify(data))
         res.end()
       })
     }

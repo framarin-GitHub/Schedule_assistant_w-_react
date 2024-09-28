@@ -52,6 +52,7 @@ return (
                   .then((msg) =>{
                     if(msg != "username not found" && msg != "wrong password"){
                       if(get_flag){
+                        const url = new URL(`http://localhost:8080/${username}`)
                         fetch(url,{
                           mode:'cors',
                           method: 'GET',
@@ -59,8 +60,17 @@ return (
                         .then((response) =>{
                           return response.text()
                         })
-                        .then((data) =>{
+                        .then((r) =>{
+                          let data = JSON.parse(r)
+                          let new_arr = []
                           console.log(data)
+                          console.log(data.events)
+                          data.events.map((e) => {
+                            let {_id, ...task} = e
+                            new_arr.push(task)
+                          })
+                          console.log(new_arr)
+                          props.setTaskArray(new_arr)
                         })
                         .then(() => {
                           props.handleLogin(`${username}`)

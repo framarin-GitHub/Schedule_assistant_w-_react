@@ -21,7 +21,8 @@ return(
       <Nav className="me-auto">
         <Nav.Link href="#home" style={{marginLeft:'10em'}}>Home</Nav.Link>
         <Nav.Link href="" onClick={clickClear} style={{marginLeft:'5em'}}>Clear</Nav.Link>
-        <Nav.Link style={{marginLeft:'5em'}}><Login logged={props.logged} handleLogin={props.handleLogin}/></Nav.Link>
+        <Nav.Link style={{marginLeft:'5em'}}><Login logged={props.logged} handleLogin={props.handleLogin} 
+          setTaskArray={props.setTaskArray}/></Nav.Link>
       </Nav>
     </Navbar.Collapse>
   </Container>

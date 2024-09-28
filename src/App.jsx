@@ -77,7 +77,7 @@ return (
     <Registration handleRegistration={setUserLogged}/>
   </ParallaxLayer>
   <ParallaxLayer offset={1}>
-    <Header handleLogin={setUserLogged} logged={user_logged}/>
+    <Header handleLogin={setUserLogged} logged={user_logged} setTaskArray={setTaskArray}/>
     <div id='central-body'>
       <Latbar task_array={task_array} setTaskArray={setTaskArray}
         group_array={group_array} setGroupArray={setGroupArray}/>
