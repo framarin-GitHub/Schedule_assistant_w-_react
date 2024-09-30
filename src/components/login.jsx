@@ -61,16 +61,27 @@ return (
                           return response.text()
                         })
                         .then((r) =>{
-                          let data = JSON.parse(r)
-                          let new_arr = []
-                          console.log(data)
-                          console.log(data.events)
-                          data.events.map((e) => {
-                            let {_id, ...task} = e
-                            new_arr.push(task)
-                          })
-                          console.log(new_arr)
-                          props.setTaskArray(new_arr)
+                          let d = JSON.parse(r)
+                          if(d.type == "task_array"){
+                            let new_arr = []
+                            console.log(d.data.events)
+                            d.data.events.map((e) => {
+                              let {_id, ...task} = e
+                              new_arr.push(task)
+                            })
+                            console.log(new_arr)
+                            props.setTaskArray(new_arr)
+                          }
+                          else{
+                            let new_arr = []
+                            console.log(d.data.groups)
+                            d.data.groups.map((e) => {
+                              let {_id, ...task} = e
+                              new_arr.push(task)
+                            })
+                            console.log(new_arr)
+                            props.setGroupArray(new_arr)
+                          }
                         })
                         .then(() => {
                           props.handleLogin(`${username}`)

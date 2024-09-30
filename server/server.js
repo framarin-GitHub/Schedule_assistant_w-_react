@@ -17,9 +17,14 @@ const account_schema = mongoose.Schema({
 const Account = mongoose.model("Account", account_schema)
 const group_schema = mongoose.Schema({
   user : String,
-  group_title : String,
-  category : String,
-  members : [String]
+  groups: [
+    {
+      id : String,
+      group_title : String,
+      members : [String],
+      category : String
+    }
+  ]
 })
 const Group = mongoose.model("Group", group_schema)
 const task_schema = mongoose.Schema({
@@ -83,6 +88,12 @@ const DBGetEvents = async (usr) =>{
     return []
   return db_user_task
 }
+const DBGetGroups = async (usr) =>{
+  let db_user_group = await Group.findOne({user: `${usr}`})
+  if(!db_user_group)
+    return []
+  return db_user_group
+}
 
 let server = http.createServer((req,res) => {
     const headers = {
@@ -97,9 +108,22 @@ let server = http.createServer((req,res) => {
       .then((data) =>{
         res.writeHead(200, headers)
         console.log(data)
-        res.write(JSON.stringify(data))
+        res.write(JSON.stringify({
+          type : "task_array",
+          d: data
+        }))
+      })
+      .then(DBGetGroups(user))
+      .then((data) =>{
+        res.writeHead(200, headers)
+        console.log(data)
+          res.write(JSON.stringify({
+          type : "group_array",
+          d: data
+        }))
         res.end()
       })
+      
     }
     if(req.method == 'POST') {
       console.log("POST requested")
